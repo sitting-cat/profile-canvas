@@ -1,0 +1,607 @@
+/* Art direction: VRChat profile card → warm atelier UI; restrained terracotta accent; balanced density. */
+:root,
+[data-theme="light"] {
+  --bg: #f3eee7;
+  --surface: #fbf8f3;
+  --surface-2: #fffdfa;
+  --offset: #e9e0d6;
+  --dynamic: #dfd3c7;
+  --text: #29241f;
+  --muted: #625b54;
+  --empty-text: #eee8e2;
+  --empty-muted: #c0b6ad;
+  --faint: #817970;
+  --inverse: #fffaf5;
+  --accent: #8a4c32;
+  --accent-hover: #6f3b27;
+  --danger: #9d3653;
+  --line: oklch(from var(--text) l c h/.13);
+  --shadow: 0 18px 50px oklch(.25 .025 55/.12);
+  --r-sm: .375rem;
+  --r-md: .625rem;
+  --r-lg: 1rem;
+  --ease: 180ms cubic-bezier(.16, 1, .3, 1);
+  --s1: .25rem;
+  --s2: .5rem;
+  --s3: .75rem;
+  --s4: 1rem;
+  --s5: 1.25rem;
+  --s6: 1.5rem;
+  --xs: clamp(.75rem, .7rem + .25vw, .875rem);
+  --sm: clamp(.875rem, .8rem + .35vw, 1rem);
+  --base: clamp(1rem, .95rem + .25vw, 1.125rem);
+  --lg: clamp(1.125rem, 1rem + .75vw, 1.5rem);
+  --font-body: 'Noto Sans JP', sans-serif;
+  --font-display: 'Shippori Mincho', serif
+}
+
+[data-theme="dark"] {
+  --bg: #191715;
+  --surface: #211e1b;
+  --surface-2: #282420;
+  --offset: #302a25;
+  --dynamic: #3b342e;
+  --text: #eee8e2;
+  --muted: #c0b6ad;
+  --empty-text: #eee8e2;
+  --empty-muted: #c0b6ad;
+  --faint: #9e9389;
+  --inverse: #211914;
+  --accent: #d48b66;
+  --accent-hover: #e5a27f;
+  --danger: #e18aa3;
+  --line: oklch(from var(--text) l c h/.15);
+  --shadow: 0 18px 60px oklch(0 0 0/.35)
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+html {
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  color-scheme: light
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 var(--base)/1.55 var(--font-body);
+  -webkit-font-smoothing: antialiased
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit
+}
+
+button {
+  cursor: pointer
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: .48
+}
+
+canvas,
+svg {
+  display: block;
+  max-width: 100%
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px
+}
+
+.skip {
+  position: fixed;
+  left: var(--s4);
+  top: -100px;
+  background: var(--text);
+  color: var(--inverse);
+  padding: var(--s2) var(--s4);
+  z-index: 30
+}
+
+.skip:focus {
+  top: var(--s4)
+}
+
+.app-header {
+  height: 64px;
+  padding-inline: max(var(--s4), env(safe-area-inset-left));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in oklab, var(--surface) 88%, transparent);
+  backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 10
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s3)
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  color: var(--accent)
+}
+
+.brand h1 {
+  font: 700 var(--lg)/1.1 var(--font-display);
+  letter-spacing: .02em
+}
+
+.brand p {
+  font-size: var(--xs);
+  color: var(--muted)
+}
+
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  transition: background var(--ease), color var(--ease), transform var(--ease)
+}
+
+.icon-btn:hover {
+  background: var(--offset);
+  color: var(--text)
+}
+
+.icon-btn:active {
+  transform: scale(.96)
+}
+
+main {
+  max-width: 1580px;
+  margin-inline: auto;
+  padding: var(--s4);
+  display: grid;
+  gap: var(--s4)
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: 0 1px 2px oklch(.25 .02 55/.04)
+}
+
+.controls {
+  padding: var(--s5);
+  display: grid;
+  gap: var(--s5)
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3)
+}
+
+.section-head h2 {
+  font-size: var(--lg);
+  line-height: 1.25
+}
+
+.step {
+  font-size: var(--xs);
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: .08em
+}
+
+.hint,
+.field-note {
+  font-size: var(--xs);
+  color: var(--muted)
+}
+
+.dropzone {
+  min-height: 120px;
+  border: 1.5px dashed color-mix(in oklab, var(--accent) 45%, var(--line));
+  border-radius: var(--r-md);
+  background: color-mix(in oklab, var(--accent) 4%, var(--surface-2));
+  display: grid;
+  place-items: center;
+  padding: var(--s5);
+  text-align: center;
+  position: relative;
+  transition: border-color var(--ease), background var(--ease), transform var(--ease)
+}
+
+.dropzone.drag {
+  border-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 10%, var(--surface-2));
+  transform: scale(.995)
+}
+
+.dropzone input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer
+}
+
+.drop-icon {
+  width: 30px;
+  height: 30px;
+  color: var(--accent);
+  margin: 0 auto var(--s2)
+}
+
+.dropzone strong {
+  display: block;
+  font-size: var(--sm)
+}
+
+.dropzone small {
+  display: block;
+  color: var(--muted);
+  font-size: var(--xs);
+  margin-top: var(--s1)
+}
+
+.form-grid {
+  display: grid;
+  gap: var(--s4)
+}
+
+.field {
+  display: grid;
+  gap: var(--s2)
+}
+
+label,
+.label,
+legend {
+  font-size: var(--sm);
+  font-weight: 700
+}
+
+.text-group {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--s3);
+  display: grid;
+  gap: var(--s2)
+}
+
+legend {
+  padding-inline: var(--s1)
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  padding: var(--s3);
+  min-height: 48px;
+  transition: border-color var(--ease), box-shadow var(--ease), background var(--ease)
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+  white-space: pre;
+  overflow-x: auto
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--line))
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 0;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent)
+}
+
+.font-preview {
+  font-size: var(--xs);
+  color: var(--muted);
+  padding-inline: var(--s1)
+}
+
+.range-field {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0 var(--s3);
+  font-size: var(--xs);
+  color: var(--muted)
+}
+
+.range-field output {
+  font-variant-numeric: tabular-nums
+}
+
+.range-field input {
+  grid-column: 1/-1;
+  accent-color: var(--accent);
+  min-height: 32px
+}
+
+.workspace {
+  padding: var(--s3);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3)
+}
+
+.canvas-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: var(--s1) var(--s2)
+}
+
+.canvas-bar h2 {
+  font-size: var(--lg)
+}
+
+.canvas-meta {
+  font-size: var(--xs);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums
+}
+
+.canvas-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  border-radius: calc(var(--r-lg) - var(--s2));
+  overflow: hidden;
+  background-color: var(--offset);
+  background-image: linear-gradient(45deg, var(--dynamic) 25%, transparent 25%), linear-gradient(-45deg, var(--dynamic) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, var(--dynamic) 75%), linear-gradient(-45deg, transparent 75%, var(--dynamic) 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 0 12px, 12px -12px, -12px 0
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  box-shadow: var(--shadow)
+}
+
+.empty {
+  position: absolute;
+  display: grid;
+  justify-items: center;
+  gap: var(--s3);
+  padding: var(--s6);
+  text-align: center;
+  pointer-events: none
+}
+
+.empty svg {
+  width: 44px;
+  color: var(--faint)
+}
+
+.empty strong {
+  font-size: var(--sm);
+  color: var(--empty-text);
+}
+
+.empty p {
+  font-size: var(--xs);
+  color: var(--empty-muted);
+  max-width: 34ch
+}
+
+.canvas-wrap.has-image .empty {
+  display: none
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s3)
+}
+
+.primary,
+.secondary {
+  min-height: 48px;
+  border-radius: var(--r-md);
+  padding: 0 var(--s5);
+  font-size: var(--sm);
+  font-weight: 700;
+  border: 1px solid transparent;
+  transition: background var(--ease), border-color var(--ease), transform var(--ease)
+}
+
+.primary {
+  background: var(--accent);
+  color: #fff
+}
+
+.primary:hover {
+  background: var(--accent-hover)
+}
+
+.secondary {
+  background: var(--surface-2);
+  border-color: var(--line)
+}
+
+.secondary:hover {
+  background: var(--offset)
+}
+
+.primary:active,
+.secondary:active {
+  transform: translateY(1px)
+}
+
+.status {
+  min-height: 20px;
+  font-size: var(--xs);
+  color: var(--muted)
+}
+
+.status[data-kind="error"] {
+  color: var(--danger)
+}
+
+@media(min-width:960px) {
+  main {
+    grid-template-columns: minmax(320px, 390px) minmax(0, 1fr);
+    padding: var(--s6);
+    gap: var(--s6);
+    height: calc(100dvh - 64px)
+  }
+
+  .controls {
+    overflow: auto
+  }
+
+  .workspace {
+    min-height: 0
+  }
+
+  .canvas-wrap {
+    flex: 1;
+    width: 100%;
+    max-height: calc(100dvh - 185px);
+    margin: auto
+  }
+
+  .actions {
+    grid-template-columns: minmax(180px, 260px) auto;
+    justify-content: end
+  }
+}
+
+@media(max-width:540px) {
+  .app-header {
+    height: 58px
+  }
+
+  .brand p {
+    display: none
+  }
+
+  main {
+    padding: var(--s3)
+  }
+
+  .controls {
+    padding: var(--s4)
+  }
+
+  .workspace {
+    padding: var(--s2)
+  }
+
+  .actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    background: color-mix(in oklab, var(--surface) 92%, transparent);
+    backdrop-filter: blur(14px);
+    margin: 0 calc(-1*var(--s2)) calc(-1*var(--s2));
+    padding: var(--s3);
+    grid-template-columns: 1fr auto
+  }
+
+  .secondary {
+    padding-inline: var(--s4)
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important
+  }
+}
+
+/* 肩書入力とランダム生成ボタン */
+.title-input-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px;
+  gap: var(--s2);
+  align-items: stretch;
+}
+
+.random-title-btn {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  transition: background var(--ease), border-color var(--ease), color var(--ease), transform var(--ease);
+}
+
+.random-title-btn svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.random-title-btn circle {
+  fill: currentColor;
+  stroke: none;
+}
+
+.random-title-btn:hover {
+  background: var(--offset);
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--line));
+  color: var(--text);
+}
+
+.random-title-btn:active {
+  transform: scale(.96);
+}

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f3eee7">
+  <title>Profile Canvas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=M+PLUS+Rounded+1c:wght@400;700;800&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&family=Shippori+Mincho:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">編集画面へ移動</a>
+<header class="app-header">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-label="ロゴ"><path d="M7 9.5A2.5 2.5 0 0 1 9.5 7h21A2.5 2.5 0 0 1 33 9.5v21a2.5 2.5 0 0 1-2.5 2.5h-21A2.5 2.5 0 0 1 7 30.5v-21Z" stroke="currentColor" stroke-width="2"/><path d="M13 27c3.8-7.1 9.3-11.8 16-14M13 27c5.3-.5 9.8.2 13.4 2M19.2 19.8c1.9.1 3.3.9 4.3 2.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <div><h1>非公式 エンフォリア ギルドカードメーカー</h1><p>「こもれびギルド エンフォリア」は冒険者となってクエストに挑戦するVRChatイベントです</p></div>
+  </div>
+  <button class="icon-btn" type="button" data-theme-toggle aria-label="ダークモードに切り替え" title="表示テーマを切り替え"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+</header>
+<main id="main">
+  <section class="panel controls" aria-labelledby="edit-title">
+    <div class="field">
+      <span class="label">背景画像</span>
+      <label class="dropzone" id="dropzone">
+        <input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="fileHelp">
+        <span><svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" stroke-linecap="round" stroke-linejoin="round"/></svg><strong>ギルドカードを選択、またはドロップ</strong><small id="fileHelp">PNG / JPEG / WebP・16:9のみ</small></span>
+      </label>
+    </div>
+    <form class="form-grid" id="editorForm">
+      <fieldset class="text-group">
+        <legend>名前</legend>
+        <input id="name" type="text" placeholder="例：エンフォリア" autocomplete="off">
+        <label class="range-field" for="nameSize"><span>文字サイズ</span><output id="nameSizeOut">100%</output><input id="nameSize" type="range" min="40" max="200" step="5" value="100"></label>
+      </fieldset>
+      <fieldset class="text-group">
+        <legend>肩書</legend>
+        <div class="title-input-row">
+          <input id="title" type="text" placeholder="サイコロを押してみて！" autocomplete="off">
+          <button class="random-title-btn" id="randomTitle" type="button" aria-label="肩書をランダム生成" title="肩書をランダム生成">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><circle cx="8" cy="8" r="1"></circle><circle cx="16" cy="8" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="8" cy="16" r="1"></circle><circle cx="16" cy="16" r="1"></circle></svg>
+          </button>
+        </div>
+        <label class="range-field" for="titleSize"><span>文字サイズ</span><output id="titleSizeOut">100%</output><input id="titleSize" type="range" min="40" max="200" step="5" value="100"></label>
+      </fieldset>
+      <fieldset class="text-group">
+        <legend>プロフィール</legend>
+        <textarea id="profile" rows="4" placeholder="活動内容や好きなことなどを入力してください。"></textarea>
+        <p class="field-note">はみ出さないように改行してください</p>
+        <label class="range-field" for="profileSize"><span>文字サイズ</span><output id="profileSizeOut">100%</output><input id="profileSize" type="range" min="40" max="200" step="5" value="100"></label>
+      </fieldset>
+      <div class="field"><label for="font">フォント</label><select id="font"><option value="'M PLUS Rounded 1c', sans-serif">M PLUS Rounded 1c — やわらか</option><option value="'Noto Sans JP', sans-serif">Noto Sans JP — すっきり</option><option value="'Klee One', cursive">Klee One — 手書き風</option><option value="'Shippori Mincho', serif">Shippori Mincho — 上品</option><option value="'Noto Serif JP', serif">Noto Serif JP — 明朝</option></select><span class="font-preview" id="fontPreview">全ての文字に一括適用されます</span></div>
+    </form>
+    <p class="hint">画像も入力文字も外部送信せず、この端末のブラウザ内で合成します。閉じる前に保存してね</p>
+  </section>
+  <section class="panel workspace" aria-labelledby="preview-title">
+    <div class="canvas-bar"><h2 id="preview-title">プレビュー</h2><span class="canvas-meta" id="canvasMeta">ギルドカードはエンフォリアで冒険者登録をする際に撮影されます</span></div>
+    <div class="canvas-wrap" id="canvasWrap"><canvas id="canvas" width="1920" height="1080" aria-label="合成結果のプレビュー"></canvas><div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m4 17 5-5 3 3 2-2 6 5"/></svg><strong>ギルドカードをセットしてください</strong><p>「背景画像」から<br>16:9 の画像を指定してください</p></div></div>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+    <div class="actions"><button class="primary" id="downloadPng" type="button" disabled>PNGを書き出す</button><button class="secondary" id="downloadJpg" type="button" disabled>JPEG</button></div>
+  </section>
+</main>
+</body>
+</html>
